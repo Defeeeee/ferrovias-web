@@ -1,0 +1,173 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0f172a; /* slate-900 */
+    color: #e2e8f0; /* slate-200 */
+}
+
+/* --- Map Styles --- */
+#map-container {
+    position: relative;
+    width: 95%;
+    margin: 2rem auto;
+    padding: 5rem 0; /* Increased padding for labels */
+    background-color: #1e293b; /* slate-800 */
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    min-height: 250px; /* Ensure it's not blank */
+}
+
+/* The main track */
+#track {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    height: 8px;
+    background-color: #475569; /* slate-600 */
+    border-radius: 4px;
+}
+
+/* A station stop on the track */
+.station-stop {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background-color: #1e293b; /* slate-800 */
+    border: 3px solid #94a3b8; /* slate-400 */
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* Label for the station - NEW alternating style */
+.station-label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 500;
+    color: #cbd5e1; /* slate-300 */
+    padding: 2px 5px;
+}
+
+.label-above {
+    bottom: 30px; /* 30px above track center */
+}
+
+.label-below {
+    top: 30px; /* 30px below track center */
+}
+
+/* --- Train Styles --- */
+.train {
+    position: absolute;
+    top: 50%; /* Center on the track */
+    transform: translate(-50%, -50%); /* Center horizontally and vertically */
+    z-index: 10;
+    transition: left 1.5s ease-in-out;
+    cursor: pointer;
+}
+
+.train-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+}
+
+/* Pointing left (to Retiro) - Default Blue */
+.dir-retiro {
+    color: #3b82f6; /* Blue */
+}
+.dir-retiro .train-icon {
+    transform: scaleX(-1); /* Flip the icon */
+    filter: drop-shadow(0 2px 2px rgba(59, 130, 246, 0.5));
+}
+
+/* Pointing right (to Villa Rosa) - Default Red */
+.dir-villarosa {
+    color: #ef4444; /* Red */
+}
+.dir-villarosa .train-icon {
+    filter: drop-shadow(0 2px 2px rgba(239, 68, 68, 0.5));
+}
+
+/* --- NEW: Destination-specific styles --- */
+/* To Boulogne (green) */
+.dir-boulogne {
+    color: #10b981; /* Emerald green */
+}
+.dir-boulogne.dir-retiro .train-icon {
+    transform: scaleX(-1);
+    filter: drop-shadow(0 2px 2px rgba(16, 185, 129, 0.5));
+}
+.dir-boulogne.dir-villarosa .train-icon {
+    filter: drop-shadow(0 2px 2px rgba(16, 185, 129, 0.5));
+}
+
+/* To Grand Bourg (orange) */
+.dir-grandbourg {
+    color: #f97316; /* Orange */
+}
+/* Grand Bourg only goes to Villa Rosa direction, but include both for robustness */
+.dir-grandbourg.dir-retiro .train-icon {
+    transform: scaleX(-1);
+    filter: drop-shadow(0 2px 2px rgba(249, 115, 22, 0.5));
+}
+.dir-grandbourg.dir-villarosa .train-icon {
+    filter: drop-shadow(0 2px 2px rgba(249, 115, 22, 0.5));
+}
+
+/* Tooltip for hover */
+.train-tooltip {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+
+    background-color: #1f2937;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+}
+
+.train-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #1f2937 transparent transparent transparent;
+}
+
+.train:hover .train-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Error Message Display */
+#error-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(30, 41, 59, 0.9); /* Dark overlay */
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    z-index: 100;
+}
