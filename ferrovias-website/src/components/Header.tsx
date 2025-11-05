@@ -30,6 +30,18 @@ export default function Header() {
               Live Map
             </a>
             <a
+              href="#departures"
+              className="text-slate-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+            >
+              Departures
+            </a>
+            <a
+              href="#analytics"
+              className="text-slate-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+            >
+              Analytics
+            </a>
+            <a
               href="#about"
               className="text-slate-300 hover:text-white transition-colors duration-200 text-sm font-medium"
             >

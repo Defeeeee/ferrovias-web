@@ -29,7 +29,10 @@ export const ESTIMATED_TRAVEL_TIMES: Record<string, number> = {
   "M. Alberti-Tortuguitas": 3,
   "Del Viso-M. Alberti": 4,
   "Cecilia Grierson-Del Viso": 4,
-  "Cecilia Grierson-Villa Rosa": 6
+  "Cecilia Grierson-Villa Rosa": 6,
+  "Boulogne Sur Mer-A. Montes": 7,
+  "Grand Bourg-Pablo Nogues": 4,
+  "Grand Bourg-Tierras Altas": 4
 };
 
 export const MOCK_API_DATA = {

@@ -1,7 +1,9 @@
 import Header from '@/components/Header';
 import TrainMap from '@/components/TrainMap';
+import StationDepartures from '@/components/StationDepartures';
+import AnalyticsDashboard from '@/components/AnalyticsDashboard';
 import Footer from '@/components/Footer';
-import { MapPin, Clock, Users, Zap } from 'lucide-react';
+import { MapPin, Clock, Users, Zap, BarChart3, Activity } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -36,6 +38,10 @@ export default function Home() {
                 <span>Live API data</span>
               </div>
               <div className="flex items-center gap-2">
+                <BarChart3 className="h-4 w-4 text-orange-400" />
+                <span>Station analytics</span>
+              </div>
+              <div className="flex items-center gap-2">
                 <Users className="h-4 w-4 text-purple-400" />
                 <span>Mobile-friendly</span>
               </div>
@@ -54,6 +60,32 @@ export default function Home() {
       <section id="map" className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <TrainMap />
+        </div>
+      </section>
+
+      {/* Station Departures Section */}
+      <section id="departures" className="py-16 bg-slate-800/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">Station Departures</h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Get detailed departure information for individual stations with real-time updates and status indicators.
+            </p>
+          </div>
+          <StationDepartures />
+        </div>
+      </section>
+
+      {/* Analytics Dashboard Section */}
+      <section id="analytics" className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">Railway Analytics</h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Comprehensive punctuality statistics, performance metrics, and data analysis based on historical timetable data. Import your own CSV data for custom analytics.
+            </p>
+          </div>
+          <AnalyticsDashboard />
         </div>
       </section>
 
