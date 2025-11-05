@@ -366,7 +366,7 @@ export function updateMap(trains, trainLayerElement) {
 
     // A side-view train icon (Material Design 'tram')
     const trainIconSvg = `
-        <svg class="train-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <svg class="train-icon" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19 16.94V8.5c0-2.79-2.61-3.18-5.71-3.45C13.16 5.02 13 5 12.5 5h-1c-.66 0-1.16.02-1.29.05C7.11 5.32 4.5 5.71 4.5 8.5v8.44c-1.03.22-1.8.88-2.23 1.69c-.52 1.02-.34 2.37.44 3.14c.78.78 2.12.96 3.14.44c.82-.43 1.48-1.2 1.69-2.23h5.92c.22 1.03.88 1.8 1.69 2.23c1.02.52 2.37.34 3.14-.44c.78-.78.96-2.12.44-3.14c-.43-.81-1.2-1.47-2.23-1.69M6.5 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5m11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5M17 15H7V9h10v6Z"/>
         </svg>
     `;
