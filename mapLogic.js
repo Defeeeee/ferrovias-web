@@ -77,7 +77,7 @@ export async function getProcessedTrainData(dataSourceEl, errorOverlay, errorMes
 
         // throw new Error('Using mock data'); // <-- UNCOMMENT THIS LINE TO FORCE MOCK DATA
 
-        const response = await fetch('http://ferrovias.fdiaznem.com.ar/stations/all/status');
+        const response = await fetch('https://ferrovias.fdiaznem.com.ar/stations/all/status');
         if (!response.ok) {
             throw new Error(`API request failed: ${response.status} ${response.statusText}. Is the server running?`);
         }
