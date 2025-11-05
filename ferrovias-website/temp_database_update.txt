@@ -1,0 +1,15 @@
+      // Enhanced CSV files including intermediate terminal origins
+      const csvFiles = [
+        '/data/villarosa/weekdays.csv',
+        '/data/villarosa/saturdays.csv',
+        '/data/villarosa/sundays.csv',
+        '/data/retiro/weekdays.csv',
+        '/data/retiro/saturdays.csv',
+        '/data/retiro/sundays.csv',
+        '/data/boulogne/weekdays.csv',
+        '/data/boulogne/saturdays.csv',
+        '/data/boulogne/sundays.csv',
+        '/data/grandbourg/weekdays.csv',
+        '/data/grandbourg/saturdays.csv',
+        '/data/grandbourg/sundays.csv'
+      ];
