@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   TrendingUp, 
   TrendingDown,
@@ -12,7 +12,6 @@ import {
   AlertTriangle,
   CheckCircle,
   Target,
-  Users,
   Zap
 } from 'lucide-react';
 import { analyticsDb, StationPunctualityStats, SystemWideStats } from '@/lib/database';
@@ -29,7 +28,7 @@ export default function AnalyticsDashboard({ className = '' }: AnalyticsDashboar
   const [importStatus, setImportStatus] = useState<string>('');
   const [collectionStatus, setCollectionStatus] = useState({ isCollecting: false, recordsCount: 0, performanceCount: 0 });
 
-  const loadAnalytics = async () => {
+  const loadAnalytics = useCallback(async () => {
     setIsLoading(true);
     try {
       // Use real-time analytics methods that incorporate live API data
@@ -44,12 +43,12 @@ export default function AnalyticsDashboard({ className = '' }: AnalyticsDashboar
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [selectedPeriod]);
 
   useEffect(() => {
     loadAnalytics();
     updateCollectionStatus();
-  }, [selectedPeriod]);
+  }, [selectedPeriod, loadAnalytics]);
 
   const updateCollectionStatus = () => {
     const status = analyticsDb.getCollectionStatus();
@@ -229,7 +228,7 @@ export default function AnalyticsDashboard({ className = '' }: AnalyticsDashboar
               </p>
             )}
             <p className="text-xs text-slate-500">
-              CSV Format: trainId followed by sequential station times (e.g., "3025 06:55 07:01 07:07...")
+              CSV Format: trainId followed by sequential station times (e.g., &quot;3025 06:55 07:01 07:07...&quot;)
             </p>
           </div>
         </div>
@@ -346,7 +345,7 @@ export default function AnalyticsDashboard({ className = '' }: AnalyticsDashboar
             <tbody>
               {stationStats
                 .sort((a, b) => b.punctualityPercentage - a.punctualityPercentage)
-                .map((station, index) => (
+                .map((station) => (
                 <tr key={station.stationName} className="border-b border-slate-700/50 hover:bg-slate-700/30">
                   <td className="py-3 px-4">
                     <div className="font-medium text-white">{station.stationName}</div>

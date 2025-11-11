@@ -1,4 +1,13 @@
 {
+  "name": "ferrovias-web",
+  "version": "1.0.0",
+  "description": "Web applications for tracking Belgrano Norte railway trains in real-time",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Defeeeee/ferrovias-web.git"
+  },
+  "author": "Defeeeee",
+  "license": "MIT",
   "dependencies": {
     "leaflet": "^1.9.4",
     "lucide-react": "^0.552.0",

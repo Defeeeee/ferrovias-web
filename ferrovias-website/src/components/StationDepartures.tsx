@@ -6,7 +6,6 @@ import {
   Clock, 
   MapPin, 
   Search, 
-  Filter, 
   RefreshCw, 
   ChevronRight,
   AlertCircle,

@@ -58,7 +58,7 @@ export async function getProcessedTrainData(): Promise<{ trains: TrainWithLocati
     };
   }
 
-  let trains: Record<string, Train> = {}; // Master list of all active trains
+  const trains: Record<string, Train> = {}; // Master list of all active trains
 
   // Pass 1: Collate all reports for every train
   for (const stationName in allStationsData) {
@@ -92,7 +92,7 @@ export async function getProcessedTrainData(): Promise<{ trains: TrainWithLocati
   }
 
   // Pass 2: Calculate the best (most likely) location for each train
-  let trainLocations: TrainWithLocation[] = [];
+  const trainLocations: TrainWithLocation[] = [];
   for (const id in trains) {
     const train = trains[id];
     if (train.reports.length === 0) continue;
