@@ -3,7 +3,7 @@ import TrainMap from '@/components/TrainMap';
 import StationDepartures from '@/components/StationDepartures';
 import AnalyticsDashboard from '@/components/AnalyticsDashboard';
 import Footer from '@/components/Footer';
-import { MapPin, Clock, Users, Zap, BarChart3, Activity } from 'lucide-react';
+import { MapPin, Clock, Users, Zap, BarChart3 } from 'lucide-react';
 
 export default function Home() {
   return (

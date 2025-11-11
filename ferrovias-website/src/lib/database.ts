@@ -528,7 +528,7 @@ export class AnalyticsDatabase {
       for (const [stationName, trainReports] of Object.entries(apiData)) {
         if (!trainReports || typeof trainReports !== 'object') continue;
 
-        for (const [trainDestId, timeData] of Object.entries(trainReports as Record<string, any>)) {
+        for (const [trainDestId, timeData] of Object.entries(trainReports as Record<string, unknown>)) {
           const [destination, trainId] = trainDestId.split('-');
           if (!destination || !trainId) continue;
 

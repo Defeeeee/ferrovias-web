@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { 
   TrendingUp, 
   BarChart3, 
@@ -20,26 +20,23 @@ interface PlatformInfo {
   status: 'active' | 'maintenance' | 'closed';
 }
 
-interface DepartureStats {
-  station: string;
-  totalDepartures: number;
-  onTimePercentage: number;
-  averageDelay: number;
-  peakHours: string[];
-}
-
 interface StationAnalyticsProps {
   selectedStation?: string;
   className?: string;
 }
 
 export default function StationAnalytics({ selectedStation = 'Retiro', className = '' }: StationAnalyticsProps) {
-  const [analyticsData, setAnalyticsData] = useState<DepartureStats | null>(null);
-  const [platformData, setPlatformData] = useState<PlatformInfo[]>([]);
+  // Calculate accessibility status deterministically based on station index
+  const accessibilityStatus = useMemo(() => {
+    const stationIndex = STATION_ORDER.indexOf(selectedStation);
+    // Major terminals and every 3rd station have full accessibility
+    const isTerminal = ['Retiro', 'Villa Rosa', 'Boulogne Sur Mer', 'Grand Bourg'].includes(selectedStation);
+    return (isTerminal || stationIndex % 3 === 0) ? 'Wheelchair Accessible' : 'Limited Accessibility';
+  }, [selectedStation]);
 
   // Mock platform data - in real app this would come from API
-  const generatePlatformData = (stationName: string): PlatformInfo[] => {
-    const isTerminal = ['Retiro', 'Villa Rosa', 'Boulogne Sur Mer', 'Grand Bourg'].includes(stationName);
+  const platformData = useMemo(() => {
+    const isTerminal = ['Retiro', 'Villa Rosa', 'Boulogne Sur Mer', 'Grand Bourg'].includes(selectedStation);
     const platformCount = isTerminal ? 4 : 2;
     
     const platforms: PlatformInfo[] = [];
@@ -48,27 +45,25 @@ export default function StationAnalytics({ selectedStation = 'Retiro', className
         platform: `${i}${i % 2 === 1 ? 'A' : 'B'}`,
         type: i % 2 === 1 ? 'A' : 'B',
         direction: i % 2 === 1 ? 'Villa Rosa / Grand Bourg' : 'Retiro',
-        status: Math.random() > 0.1 ? 'active' : 'maintenance'
+        // Use deterministic status based on platform number
+        status: i % 10 === 0 ? 'maintenance' : 'active'
       });
     }
     return platforms;
-  };
+  }, [selectedStation]);
 
   // Mock analytics data - in real app this would come from historical API data
-  const generateAnalyticsData = (stationName: string): DepartureStats => {
-    const baseTrains = MOCK_API_DATA[stationName] ? Object.keys(MOCK_API_DATA[stationName]).length : 0;
+  const analyticsData = useMemo(() => {
+    const baseTrains = MOCK_API_DATA[selectedStation] ? Object.keys(MOCK_API_DATA[selectedStation]).length : 0;
+    const stationIndex = STATION_ORDER.indexOf(selectedStation);
     return {
-      station: stationName,
-      totalDepartures: Math.floor(Math.random() * 50) + baseTrains * 10,
-      onTimePercentage: Math.floor(Math.random() * 30) + 70,
-      averageDelay: Math.floor(Math.random() * 8) + 2,
+      station: selectedStation,
+      // Generate deterministic values based on station index
+      totalDepartures: (stationIndex * 13 + 15) + baseTrains * 10,
+      onTimePercentage: 70 + (stationIndex * 7) % 30,
+      averageDelay: 2 + (stationIndex * 3) % 8,
       peakHours: ['07:00-09:00', '17:00-19:00']
     };
-  };
-
-  useEffect(() => {
-    setPlatformData(generatePlatformData(selectedStation));
-    setAnalyticsData(generateAnalyticsData(selectedStation));
   }, [selectedStation]);
 
   const getStatusColor = (status: PlatformInfo['status']) => {
@@ -283,7 +278,7 @@ export default function StationAnalytics({ selectedStation = 'Retiro', className
           <div className="space-y-2">
             <div className="text-slate-400">Accessibility:</div>
             <div className="text-white">
-              {Math.random() > 0.3 ? 'Wheelchair Accessible' : 'Limited Accessibility'}
+              {accessibilityStatus}
             </div>
           </div>
         </div>
