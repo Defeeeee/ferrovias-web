@@ -35,3 +35,28 @@ export interface DataSourceInfo {
   message: string;
   error?: string;
 }
+
+export interface StationPunctualityStats {
+  stationName: string;
+  totalDepartures: number;
+  onTimeDepartures: number;
+  averageDelayMinutes: number;
+  punctualityPercentage: number;
+  worstDelayMinutes: number;
+  bestPerformanceHour: string;
+  worstPerformanceHour?: string;
+  lastUpdated: string;
+}
+
+export interface SystemWideStats {
+  totalDepartures: number;
+  systemPunctuality: number;
+  averageSystemDelay: number;
+  bestPerformingStation: string;
+  worstPerformingStation: string;
+  peakHours: string[];
+  dataRange: {
+    from: string;
+    to: string;
+  };
+}

@@ -154,6 +154,7 @@ export class AnalyticsDatabase {
   }
 
   private async loadLocalCSVData() {
+    if (typeof window === 'undefined') return;
     try {
       // Enhanced CSV files including intermediate terminal origins
       const csvFiles = [
@@ -246,7 +247,7 @@ export class AnalyticsDatabase {
         // Trains originating from Boulogne Sur Mer going to Retiro
         direction = 'retiro';
         startingStationIndex = stationOrder.indexOf("Boulogne Sur Mer");
-        actualStations = stationOrder.slice(startingStationIndex, startingStationIndex + times.length);
+        actualStations = stationOrder.slice(0, startingStationIndex + 1).reverse();
       } else if (filename?.includes('/boulogne/villarosa/')) {
         // Trains originating from Boulogne Sur Mer going to Villa Rosa terminals
         direction = 'villarosa';
@@ -256,7 +257,7 @@ export class AnalyticsDatabase {
         // Trains originating from Grand Bourg
         direction = 'retiro';
         startingStationIndex = stationOrder.indexOf("Grand Bourg");
-        actualStations = stationOrder.slice(startingStationIndex, startingStationIndex + times.length);
+        actualStations = stationOrder.slice(0, startingStationIndex + 1).reverse();
       } else {
         // Fallback logic
         direction = parseInt(trainId) % 2 === 0 ? 'villarosa' : 'retiro';
