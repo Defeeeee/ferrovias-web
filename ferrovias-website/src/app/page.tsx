@@ -28,6 +28,28 @@ import {
 export default function Home() {
   const [activeView, setActiveView] = useState<'tracker' | 'planner' | 'stations' | 'analytics' | 'developer' | 'guide'>('tracker');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Restore active view from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedView = localStorage.getItem('ferrovias_active_view');
+      const validViews = ['tracker', 'planner', 'stations', 'analytics', 'developer', 'guide'];
+      if (savedView && validViews.includes(savedView)) {
+        setActiveView(savedView as any);
+      }
+    } catch (e) {
+      console.error('Failed to restore active view from localStorage:', e);
+    }
+  }, []);
+
+  const changeView = (view: 'tracker' | 'planner' | 'stations' | 'analytics' | 'developer' | 'guide') => {
+    setActiveView(view);
+    try {
+      localStorage.setItem('ferrovias_active_view', view);
+    } catch (e) {
+      console.error('Failed to save active view to localStorage:', e);
+    }
+  };
   const [collectorStatus, setCollectorStatus] = useState({
     isCollecting: false,
     recordsCount: 0,
@@ -128,7 +150,7 @@ export default function Home() {
                 <button
                   key={item.id}
                   onClick={() => {
-                    setActiveView(item.id as any);
+                    changeView(item.id as any);
                     setSidebarOpen(false);
                   }}
                   className={`w-full flex items-start gap-3.5 p-3.5 rounded-xl text-left border cursor-pointer transition-all duration-200 ${
