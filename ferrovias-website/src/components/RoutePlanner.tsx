@@ -223,7 +223,7 @@ export default function RoutePlanner({ className = '' }: RoutePlannerProps) {
       </div>
 
       {/* Loading Spinner */}
-      {isLoading && (
+      {isLoading && !plannerData && (
         <div className="glass-panel rounded-3xl p-12 flex flex-col items-center justify-center space-y-4">
           <RefreshCw className="h-8 w-8 text-blue-500 animate-spin" />
           <span className="text-slate-400 text-sm font-semibold">Calculating routes and live schedules...</span>
@@ -257,8 +257,8 @@ export default function RoutePlanner({ className = '' }: RoutePlannerProps) {
       ) : null}
 
       {/* Route List Results */}
-      {plannerData && !isLoading && (
-        <div className="space-y-4">
+      {plannerData && (
+        <div className={`space-y-4 transition-opacity duration-300 ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
           
           {/* Metadata Bar */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 text-xs text-slate-500 font-semibold gap-2">
