@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import TrainMap from '@/components/TrainMap';
 import StationDepartures from '@/components/StationDepartures';
 import AnalyticsDashboard from '@/components/AnalyticsDashboard';
+import RoutePlanner from '@/components/RoutePlanner';
 import Footer from '@/components/Footer';
 import { API_URL } from '@/lib/config';
 import { 
@@ -20,11 +21,12 @@ import {
   X, 
   Train,
   CheckCircle,
-  HelpCircle
+  HelpCircle,
+  Navigation
 } from 'lucide-react';
 
 export default function Home() {
-  const [activeView, setActiveView] = useState<'tracker' | 'stations' | 'analytics' | 'developer' | 'guide'>('tracker');
+  const [activeView, setActiveView] = useState<'tracker' | 'planner' | 'stations' | 'analytics' | 'developer' | 'guide'>('tracker');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collectorStatus, setCollectorStatus] = useState({
     isCollecting: false,
@@ -57,6 +59,7 @@ export default function Home() {
 
   const navItems = [
     { id: 'tracker', label: 'Live Train Tracker', icon: Activity, desc: 'Visual rail map & estimated positions' },
+    { id: 'planner', label: 'Trip Planner', icon: Navigation, desc: 'Calculate routes & intermediate times' },
     { id: 'stations', label: 'Station Boards', icon: Train, desc: 'Departures, platforms, facts' },
     { id: 'analytics', label: 'Performance Analytics', icon: BarChart3, desc: 'Punctuality indices & rankings' },
     { id: 'developer', label: 'Developer Portal', icon: Terminal, desc: 'API endpoints, docs, JSON payloads' },
@@ -200,6 +203,8 @@ export default function Home() {
         {/* ACTIVE VIEW SWAPPER */}
         <div className="relative z-10 transition-all duration-350">
           {activeView === 'tracker' && <TrainMap />}
+          
+          {activeView === 'planner' && <RoutePlanner />}
           
           {activeView === 'stations' && <StationDepartures />}
           
